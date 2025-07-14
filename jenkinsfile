@@ -5,7 +5,8 @@ pipeline {
         stage('checkout code'){
             steps{
                  git 'https://github.com/Houssem123987/houssem'
-
+            }
+        }
         stage('Build') {
             steps {
                 sh 'echo "Building the app"'
