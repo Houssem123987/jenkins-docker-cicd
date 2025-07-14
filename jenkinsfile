@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     stages {
-        stage('checkout code'){
+        stage('Checkout code') {
             steps {
                 git branch: 'main', url: 'https://github.com/Houssem123987/houssem'
             }
@@ -25,14 +25,19 @@ pipeline {
                 bat 'echo Deploying the app'
             }
         }
-        post{
-             success{
-                 bat 'echo build successful'
-             }
-             failure{
-                 bat 'echo build failed'
-             }
-       }
+    } 
+
+    post { 
+        always {
+            echo 'Pipeline terminé'
+        }
+        success {
+            echo 'Succès du pipeline'
+        }
+        failure {
+            echo 'Échec du pipeline'
+        }
     }
 }
+
 
