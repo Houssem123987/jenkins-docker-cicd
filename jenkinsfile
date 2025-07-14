@@ -2,21 +2,25 @@ pipeline {
     agent any
 
     stages {
+        stage('checkout code'){
+            steps{
+                 git 'https://github.com/Houssem123987/houssem'
+
         stage('Build') {
             steps {
-                echo 'Building the app'
+                sh 'echo "Building the app"'
             }
         }
 
         stage('Test') {
             steps {
-                echo 'Testing the app'
+                sh 'echo "Testing the app"'
             }
         }
 
         stage('Deploy') {
             steps {
-                echo 'Deploying the app'
+                sh 'echo "Deploying the app"'
             }
         }
     }
