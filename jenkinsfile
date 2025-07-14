@@ -3,25 +3,26 @@ pipeline {
 
     stages {
         stage('checkout code'){
-            steps{
-                 git 'https://github.com/Houssem123987/houssem'
+            steps {
+                git 'https://github.com/Houssem123987/houssem'
             }
         }
+
         stage('Build') {
             steps {
-                sh 'echo "Building the app"'
+                bat 'echo Building the app'
             }
         }
 
         stage('Test') {
             steps {
-                sh 'echo "Testing the app"'
+                bat 'echo Testing the app'
             }
         }
 
         stage('Deploy') {
             steps {
-                sh 'echo "Deploying the app"'
+                bat 'echo Deploying the app'
             }
         }
     }
