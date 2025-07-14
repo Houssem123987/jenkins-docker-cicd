@@ -1,43 +1,37 @@
 pipeline {
     agent any
 
+    environment {
+        IMAGE_NAME = 'houssem128/houssem'
+    }
+
     stages {
-        stage('Checkout code') {
+        stage('Checkout') {
             steps {
                 git branch: 'main', url: 'https://github.com/Houssem123987/houssem'
             }
         }
 
-        stage('Build') {
+        stage('Build Docker Image') {
             steps {
-                bat 'echo Building the app'
+                bat "docker build -t %IMAGE_NAME%:latest ."
             }
         }
 
-        stage('Test') {
+        stage('Push to Docker Hub') {
             steps {
-                bat 'echo Testing the app'
+                withCredentials([usernamePassword(credentialsId: 'docker', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                    bat """
+                    echo %DOCKER_PASS% | docker login -u %DOCKER_USER% --password-stdin
+                    docker push %IMAGE_NAME%:latest
+                    docker logout
+                    """
+                }
             }
-        }
-
-        stage('Deploy') {
-            steps {
-                bat 'echo Deploying the app'
-            }
-        }
-    } 
-
-    post { 
-        always {
-            echo 'Pipeline terminé'
-        }
-        success {
-            echo 'Succès du pipeline'
-        }
-        failure {
-            echo 'Échec du pipeline'
         }
     }
 }
+
+
 
 
